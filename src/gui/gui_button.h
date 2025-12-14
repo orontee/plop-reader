@@ -1,83 +1,70 @@
 #ifndef GUI_GUI_BUTTON_H_
 #define GUI_GUI_BUTTON_H_
 
-
 #include "inkview.h"
 
-
-class GuiButton
-{
+class GuiButton {
 public:
-	~GuiButton() {
-		if (icon) {
-			free(icon);
-		}
-	}
+  ~GuiButton() {
+    if (icon) {
+      free(icon);
+    }
+  }
 
-	void setCoordinates(int xx, int yy, int ww, int hh) {
-		mustRedraw = true;
-		x = xx;
-		y = yy;
-		w = ww;
-		h = hh;
-	}
+  void setCoordinates(int xx, int yy, int ww, int hh) {
+    mustRedraw = true;
+    x = xx;
+    y = yy;
+    w = ww;
+    h = hh;
+  }
 
-	void setFont(ifont *ff) {
-		mustRedraw = true;
-		font = ff;
-	}
+  void setFont(ifont *ff) {
+    mustRedraw = true;
+    font = ff;
+  }
 
-	void setSymbol(int s) {
-		mustRedraw = true;
-		symbol = s;
-		str = NULL;
-	}
+  void setSymbol(int s) {
+    mustRedraw = true;
+    symbol = s;
+    str = NULL;
+  }
 
-	void setString(const char *s) {
-		mustRedraw = true;
-		str = s;
-		symbol = -1;
-	}
+  void setString(const char *s) {
+    mustRedraw = true;
+    str = s;
+    symbol = -1;
+  }
 
-	void setIcon(ibitmap *bmp) {
-		icon = bmp;
-	}
+  void setIcon(ibitmap *bmp) { icon = bmp; }
 
-	bool hit(int xx, int yy) {
-		return xx >= x
-				&& xx <= x + w
-				&& yy >= y
-				&& yy <= y + h
-		;
-	}
+  auto hit(int xx, int yy) -> bool {
+    return xx >= x && xx <= x + w && yy >= y && yy <= y + h;
+  }
 
-	void setPressed(bool p) {
-		mustRedraw = true;
-		pressed = p;
-	}
+  void setPressed(bool p) {
+    mustRedraw = true;
+    pressed = p;
+  }
 
-	void forceRedraw() {
-		mustRedraw = true;
-	}
+  void forceRedraw() { mustRedraw = true; }
 
-	void draw(bool updateScreen);
-
+  void draw(bool updateScreen);
 
 private:
-	bool mustRedraw;
+  bool mustRedraw;
 
-	int x, y;
-	int w, h;
+  int x, y;
+  int w, h;
 
-	ifont *font;
+  ifont *font;
 
-	int symbol = -1;
-	const char *str = NULL;
+  int symbol = -1;
+  const char *str = NULL;
 
-	bool pressed = false;
+  bool pressed = false;
 
-	ibitmap *icon = NULL;
+  ibitmap *icon = NULL;
 };
-
 
 #endif /* GUI_GUI_BUTTON_H_ */

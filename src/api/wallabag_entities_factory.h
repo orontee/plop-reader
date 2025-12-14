@@ -1,25 +1,19 @@
 #ifndef API_WALLABAG_ENTITIES_FACTORY_H_
 #define API_WALLABAG_ENTITIES_FACTORY_H_
 
-
 #include "json-c/json.h"
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 
 #include "../entities/entry.h"
 
-
-class WallabagEntitiesFactory
-{
+class WallabagEntitiesFactory {
 public:
-
-	Entry createEntryFromJson(json_object *item);
-	Entry mergeLocalAndRemoteEntries(Entry &local, Entry &remote);
+  auto createEntryFromJson(json_object *item) -> Entry;
+  auto mergeLocalAndRemoteEntries(Entry &local, Entry &remote) -> Entry;
 
 private:
-	time_t datetimeStringToTimeT(const char *str);
-
+  time_t datetimeStringToTimeT(const char *str);
 };
-
 
 #endif /* API_WALLABAG_ENTITIES_FACTORY_H_ */

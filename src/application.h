@@ -1,12 +1,12 @@
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
 
-#include <tgmath.h>
+#include <ctgmath>
 #include <string>
 
 #include "api/wallabag_api.h"
-#include "api/wallabag_config_loader.h"
 #include "api/wallabag_config.h"
+#include "api/wallabag_config_loader.h"
 
 #include "database/database.h"
 
@@ -17,89 +17,80 @@
 #include "repositories/entry_repository.h"
 #include "repositories/epub_download_queue_repository.h"
 
-
 #include <sstream>
 
-#define SSTR( x ) static_cast< std::ostringstream & >( \
-        ( std::ostringstream() << std::dec << x ) ).str()
+#define SSTR(x)                                                                \
+  static_cast<std::ostringstream &>((std::ostringstream() << std::dec << x))   \
+      .str()
 
-
-class Application
-{
+class Application {
 public:
-	enum entries_mode {MODE_UNREAD=1, MODE_ARCHIVED, MODE_STARRED};
-	enum reading_format {FORMAT_HTML=1, FORMAT_EPUB};
+  enum entries_mode { MODE_UNREAD = 1, MODE_ARCHIVED, MODE_STARRED };
+  enum reading_format { FORMAT_HTML = 1, FORMAT_EPUB };
 
-	Application() : entryRepository(db), epubDownloadQueueRepository(db), gui(*this) {
-		db.open();
-		pageNum = 1;
-		numPerPage = 8;
-		isLastActionRead = false;
-		lastReadEntryId = 0;
-		mode = MODE_UNREAD;
-	}
+  Application()
+      : entryRepository(db), epubDownloadQueueRepository(db), gui(*this) {
+    db.open();
+    pageNum = 1;
+    numPerPage = 8;
+    isLastActionRead = false;
+    lastReadEntryId = 0;
+    mode = MODE_UNREAD;
+  }
 
-	void init();
-	void deinit();
+  void init();
+  void deinit();
 
-	void loadRecentArticles();
+  void loadRecentArticles();
 
-	Database &getDb() {
-		return db;
-	}
+  auto getDb() -> Database & { return db; }
 
+  void show();
 
-	void show();
+  void touchStartEvent(int x, int y);
+  void touchEndEvent(int x, int y);
+  void touchLong(int x, int y);
 
-	void touchStartEvent(int x, int y);
-	void touchEndEvent(int x, int y);
-	void touchLong(int x, int y);
+  void keypressEvent(int key);
 
-	void keypressEvent(int key);
+  void read(Entry &entry, reading_format format = FORMAT_EPUB);
 
-	void read(Entry &entry, reading_format format=FORMAT_EPUB);
+  void foreground();
+  void background();
 
-	void foreground();
-	void background();
+  void handleActionOnReadEntry(int entryId);
 
-	void handleActionOnReadEntry(int entryId);
+  void setMode(int m, int forcePageNum = -1);
 
-	void setMode(int m, int forcePageNum = -1);
+  auto getGui() -> Gui & { return gui; }
 
-	Gui &getGui() {
-		return gui;
-	}
+  auto getEntryRepository() -> EntryRepository & { return entryRepository; }
 
-	EntryRepository &getEntryRepository() {
-		return entryRepository;
-	}
-
-	void deleteAllLocalData();
-	void initAssets();
+  void deleteAllLocalData();
+  void initAssets();
 
 private:
-	Database db;
-	WallabagApi wallabag_api;
-	EntryRepository entryRepository;
-	EpubDownloadQueueRepository epubDownloadQueueRepository;
-	Gui gui;
+  Database db;
+  WallabagApi wallabag_api;
+  EntryRepository entryRepository;
+  EpubDownloadQueueRepository epubDownloadQueueRepository;
+  Gui gui;
 
-	entries_mode mode;
+  entries_mode mode;
 
-	int pageNum;
-	int numPerPage;
+  int pageNum;
+  int numPerPage;
 
-	bool isLastActionRead;
-	int lastReadEntryId;
+  bool isLastActionRead;
+  int lastReadEntryId;
 
-	bool connectToNetwork();
+  auto connectToNetwork() -> bool;
 
-	int countEntriesForCurrentMode();
-	void listEntriesForCurrentMode(std::vector<Entry> &entries);
+  auto countEntriesForCurrentMode() -> int;
+  void listEntriesForCurrentMode(std::vector<Entry> &entries);
 
-	void saveModeAndPage();
-	void restoreModeAndPage();
+  void saveModeAndPage();
+  void restoreModeAndPage();
 };
-
 
 #endif /* APPLICATION_H_ */

@@ -1,45 +1,40 @@
 #ifndef REPOSITORIES_ENTRY_REPOSITORY_H_
 #define REPOSITORIES_ENTRY_REPOSITORY_H_
 
-
 #include <vector>
 
 #include "../database/database.h"
 #include "../entities/entry.h"
 
-
-class EntryRepository
-{
+class EntryRepository {
 public:
-	EntryRepository(Database &d) : db(d) {}
+  EntryRepository(Database &d) : db(d) {}
 
-	void persist(Entry entry);
+  void persist(Entry entry);
 
-	void deleteAll();
+  void deleteAll();
 
-	void list(std::vector<Entry> &entries, int limit, int offset,
-			int archived, int starred);
+  void list(std::vector<Entry> &entries, int limit, int offset, int archived,
+            int starred);
 
-	int countAllEntries();
+  auto countAllEntries() -> int;
 
-	int countUnread();
-	int countArchived();
-	int countStarred();
-	int count(int archived, int starred);
+  auto countUnread() -> int;
+  auto countArchived() -> int;
+  auto countStarred() -> int;
+  auto count(int archived, int starred) -> int;
 
-	void listUnread(std::vector<Entry> &entries, int limit, int offset);
-	void listArchived(std::vector<Entry> &entries, int limit, int offset);
-	void listStarred(std::vector<Entry> &entries, int limit, int offset);
+  void listUnread(std::vector<Entry> &entries, int limit, int offset);
+  void listArchived(std::vector<Entry> &entries, int limit, int offset);
+  void listStarred(std::vector<Entry> &entries, int limit, int offset);
 
-	Entry get(int entryId);
-	Entry findByRemoteId(int remoteId);
+  auto get(int entryId) -> Entry;
+  auto findByRemoteId(int remoteId) -> Entry;
 
-	void findUpdatedLocallyMoreRecentlyThanRemotely(std::vector<Entry> &entries);
+  void findUpdatedLocallyMoreRecentlyThanRemotely(std::vector<Entry> &entries);
 
 private:
-	Database &db;
-
+  Database &db;
 };
-
 
 #endif /* REPOSITORIES_ENTRY_REPOSITORY_H_ */
