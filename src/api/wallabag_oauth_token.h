@@ -3,15 +3,12 @@
 
 #include <string>
 
-class WallabagOAuthToken
-{
+class WallabagOAuthToken {
 
 public:
-	std::string access_token;
-	std::string refresh_token;
-	int expires_at;
-
+  std::string access_token;
+  std::string refresh_token;
+  int expires_at;
 };
-
 
 #endif /* API_WALLABAG_OAUTH_TOKEN_H_ */

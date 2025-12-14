@@ -5,65 +5,59 @@
 #include <stdexcept>
 #include <string>
 
-
-class AbortApplication : public std::runtime_error
-{
+class AbortApplication : public std::runtime_error {
 public:
-	AbortApplication(const std::string& message) : std::runtime_error(message + "\n\nThe application cannot continue and will close.") { };
-	AbortApplication(void) : std::runtime_error("The application cannot continue and will close.") { };
+  AbortApplication(const std::string &message)
+      : std::runtime_error(
+            message + "\n\nThe application cannot continue and will close.") {};
+  AbortApplication()
+      : std::runtime_error("The application cannot continue and will close.") {
+        };
 };
 
-
-class ConfigFileNotFoundException : public AbortApplication
-{
+class ConfigFileNotFoundException : public AbortApplication {
 public:
-	ConfigFileNotFoundException(const std::string& message) : AbortApplication(message) { };
+  ConfigFileNotFoundException(const std::string &message)
+      : AbortApplication(message) {};
 };
 
-
-class ConfigFileInvalidException : public AbortApplication
-{
+class ConfigFileInvalidException : public AbortApplication {
 public:
-	ConfigFileInvalidException(const std::string& message) : AbortApplication(message) { };
+  ConfigFileInvalidException(const std::string &message)
+      : AbortApplication(message) {};
 };
 
-
-class ConfigFileMissingItemException : public AbortApplication
-{
+class ConfigFileMissingItemException : public AbortApplication {
 public:
-	ConfigFileMissingItemException(const std::string& message) : AbortApplication(message) { };
+  ConfigFileMissingItemException(const std::string &message)
+      : AbortApplication(message) {};
 };
 
-
-
-
-class SyncAbortAllOperations : public std::runtime_error
-{
+class SyncAbortAllOperations : public std::runtime_error {
 public:
-	SyncAbortAllOperations(const std::string& message) : std::runtime_error(message + "\n\nThe synchronization cannot go on.") { };
-	SyncAbortAllOperations(void) : std::runtime_error("The synchronization cannot go on.") { };
+  SyncAbortAllOperations(const std::string &message)
+      : std::runtime_error(message + "\n\nThe synchronization cannot go on.") {
+        };
+  SyncAbortAllOperations()
+      : std::runtime_error("The synchronization cannot go on.") {};
 };
 
-
-class SyncOAuthException : public SyncAbortAllOperations
-{
+class SyncOAuthException : public SyncAbortAllOperations {
 public:
-	SyncOAuthException(const std::string& message) : SyncAbortAllOperations(message) { };
+  SyncOAuthException(const std::string &message)
+      : SyncAbortAllOperations(message) {};
 };
 
-
-class SyncHttpException : public SyncAbortAllOperations
-{
+class SyncHttpException : public SyncAbortAllOperations {
 public:
-	SyncHttpException(const std::string& message) : SyncAbortAllOperations(message) { };
+  SyncHttpException(const std::string &message)
+      : SyncAbortAllOperations(message) {};
 };
 
-
-class SyncInvalidJsonException : public SyncAbortAllOperations
-{
+class SyncInvalidJsonException : public SyncAbortAllOperations {
 public:
-	SyncInvalidJsonException(const std::string& message) : SyncAbortAllOperations(message) { };
+  SyncInvalidJsonException(const std::string &message)
+      : SyncAbortAllOperations(message) {};
 };
-
 
 #endif /* EXCEPTIONS_H_ */

@@ -7,18 +7,15 @@
 #include "json-c/json.h"
 #include "sqlite3.h"
 
-
 #include "application.h"
 #include "exceptions.h"
 
-
 extern Application app;
-
 
 // api
 #include "api/wallabag_api.h"
-#include "api/wallabag_config_loader.h"
 #include "api/wallabag_config.h"
+#include "api/wallabag_config_loader.h"
 #include "api/wallabag_entities_factory.h"
 #include "api/wallabag_oauth_token.h"
 

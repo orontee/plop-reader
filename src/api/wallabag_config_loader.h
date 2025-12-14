@@ -4,23 +4,21 @@
 #include "inkview.h"
 #include "json-c/json.h"
 
-#include "wallabag_config.h"
 #include "../defines.h"
-#include "../log.h"
 #include "../exceptions.h"
+#include "../log.h"
+#include "wallabag_config.h"
 
 #include "../translate.h"
 
-class WallabagConfigLoader
-{
+class WallabagConfigLoader {
 public:
-	WallabagConfig load(void);
+  auto load() -> WallabagConfig;
 
 private:
-	const char *CONFIG_FILE = PLOP_BASE_DIRECTORY "/config.json";
+  const char *CONFIG_FILE = PLOP_BASE_DIRECTORY "/config.json";
 
-	char *readConfigFile(const char *path);
+  auto readConfigFile(const char *path) -> char *;
 };
-
 
 #endif /* API_WALLABAG_CONFIG_LOADER_H_ */

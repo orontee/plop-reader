@@ -1,7 +1,6 @@
 #ifndef SRC_REPOSITORIES_EPUB_DOWNLOAD_QUEUE_REPOSITORY_H_
 #define SRC_REPOSITORIES_EPUB_DOWNLOAD_QUEUE_REPOSITORY_H_
 
-
 #include <vector>
 
 #include "../database/database.h"
@@ -9,24 +8,21 @@
 #include "../entities/entry.h"
 #include "../entities/epub_download.h"
 
-class EpubDownloadQueueRepository
-{
+class EpubDownloadQueueRepository {
 public:
-	EpubDownloadQueueRepository(Database &d) : db(d) {}
+  EpubDownloadQueueRepository(Database &d) : db(d) {}
 
-	//void persist(EpubDownload item);
+  // void persist(EpubDownload item);
 
-	void enqueueDownloadForEntry(Entry &entry);
+  void enqueueDownloadForEntry(Entry &entry);
 
-	void markEntryAsDownloading(int entry_id);
-	void markEntryAsDownloaded(int entry_id);
+  void markEntryAsDownloading(int entry_id);
+  void markEntryAsDownloaded(int entry_id);
 
-	void listEntryIdsToDownload(std::vector<int> &ids, int limit, int offset);
-
+  void listEntryIdsToDownload(std::vector<int> &ids, int limit, int offset);
 
 private:
-	Database &db;
+  Database &db;
 };
-
 
 #endif /* SRC_REPOSITORIES_EPUB_DOWNLOAD_QUEUE_REPOSITORY_H_ */
