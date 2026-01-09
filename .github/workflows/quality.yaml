@@ -1,0 +1,30 @@
+name: Quality assurance checks
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Install check dependencies
+        run: |
+          sudo apt-get update -
+          sudo apt-get install --no-install-recommends -y \
+                build-essential \
+                ca-certificates \
+                clang-format \
+                git
+
+      - name: Run format check
+        run: |
+          clang-format --dry-run src/**.cpp src/**.h
+          git diff-files --stat
+          git diff-files --quiet

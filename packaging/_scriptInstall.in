@@ -1,0 +1,4 @@
+packageName=plop-reader
+packageVersion=@plop-reader_VERSION@
+destDir=/mnt/ext1/applications/
+destAction=install
